@@ -19,10 +19,26 @@
         </style>
         <script src="https://cdn.babylonjs.com/babylon.js"></script>
         <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
         <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
     </head>
    <body>
-    <canvas id="renderCanvas" touch-action="none"></canvas> <!-- touch-action="none" for best results from PEP -->
-    <script src="import_village.js"/>
+    <!-- touch-action="none" for best results from PEP -->
+    <!-- <canvas id="renderCanvas" touch-action="none"></canvas>  -->
+    <!-- <script src="import_village.js"/> -->
+    <babylon id="myViewer" extends="minimal"></babylon>
+    <script>
+        BabylonViewer.viewerManager.getViewerPromiseById('myViewer').then((viewer) => {
+            viewer.onSceneInitObservable.add(() => {
+                viewer.sceneManager.camera.radius = 15; // set the camera radius
+                viewer.sceneManager.camera.beta = Math.PI / 2.2;    // angle of depression
+            });
+            viewer.onEngineInitObservable.add((scene) => {
+                viewer.loadModel({
+                    url: "./village.glb"
+                });
+            });
+        });
+    </script>
    </body>
 </html>
