@@ -11,30 +11,15 @@ const createScene = function () {
     camera.attachControl(canvas, true);
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
-    const box1 = BABYLON.MeshBuilder.CreateBox("box", { width: 2, height: 1.5, depth: 3 });
-    // A way to place object
-    box1.position.y = 0.75;
+    const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    box.position.y = 0.5;
 
-    // An other way to scale objects
-    const box2 = BABYLON.MeshBuilder.CreateBox("box", {});
-    box2.scaling.x = 2;
-    box2.scaling.y = 1.5;
-    box2.scaling.z = 3;
-    // An other way to place objects
-    box2.position = new BABYLON.Vector3(-3, 0.75, 0);
-    // Rotate object (radians)
-    box2.rotation.y = Math.PI / 4;
-    
-    // Yet an other way to scale objects
-    const box3 = BABYLON.MeshBuilder.CreateBox("box", {});
-    box3.scaling = new BABYLON.Vector3(2, 1.5, 3);
-    box3.position.x = 3;
-    box3.position.y = 0.75;
-    box3.position.z = 0;
-    // Rotate object (degrees)
-    box3.rotation.y = BABYLON.Tools.ToDegrees(45);
+    const roof = BABYLON.MeshBuilder.CreateCylinder("roof", { diameter: 1.3, height: 1.2, tessellation: 3 });
+    roof.scaling.x = 0.75;
+    roof.rotation.z = Math.PI / 2;
+    roof.position.y = 1.22;
 
-    const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
+    const ground = BABYLON.MeshBuilder.CreateGround("ground", { width:10, height:10 });
 
     
 
