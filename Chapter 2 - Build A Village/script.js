@@ -4,7 +4,9 @@ const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engi
 // Add your code here matching the playground format
 const createScene = function () {
 
-    const scene = new BABYLON.Scene(engine);  
+    const scene = new BABYLON.Scene(engine);
+
+    const music = new BABYLON.Sound("cello", "cellolong.wav", scene, null, { loop: true, autoplay: true });
 
     const box = BABYLON.MeshBuilder.CreateBox("box", {})
     box.position.y = 0.5;
