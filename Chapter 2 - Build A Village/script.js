@@ -11,16 +11,29 @@ const createScene = function () {
     camera.attachControl(canvas, true);
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
+    /* MATERIALS */
+    // Color
+    const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
+    groundMat.diffuseColor = new BABYLON.Color3(0, 1, 0);
+    // Texture
+    const roofMat = new BABYLON.StandardMaterial("roofMat");
+    roofMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/roof.jpg", scene);
+    const boxMat = new BABYLON.StandardMaterial("boxMat");
+    boxMat.diffuseTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/floor.png");
+
+    /* WORLD OBJECTS */
     const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    box.material = boxMat;
     box.position.y = 0.5;
 
     const roof = BABYLON.MeshBuilder.CreateCylinder("roof", { diameter: 1.3, height: 1.2, tessellation: 3 });
+    roof.material = roofMat;
     roof.scaling.x = 0.75;
     roof.rotation.z = Math.PI / 2;
     roof.position.y = 1.22;
 
     const ground = BABYLON.MeshBuilder.CreateGround("ground", { width:10, height:10 });
-
+    ground.material = groundMat;
     
 
     return scene;
