@@ -53,7 +53,12 @@ const createScene = function () {
         scene.beginAnimation(wheelLF, 0, 30, true);
     });
 
-    
+    // Dude
+    BABYLON.SceneLoader.ImportMeshAsync("him", "https://playground.babylonjs.com/scenes/Dude/", "Dude.babylon", scene).then((result) => {
+        var dude = result.meshes[0];
+        dude.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
+        scene.beginAnimation(result.skeletons[0], 0, 100, true, 1.0);
+    });
 
     return scene;
 };
