@@ -21,7 +21,7 @@ const createScene = function () {
 
     let carReady = false;
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "./", "village.glb");
+    BABYLON.SceneLoader.ImportMeshAsync("", "./", "valleyvillage.glb");
     BABYLON.SceneLoader.ImportMeshAsync("", "./", "car.babylon").then(() => {
         const car = scene.getMeshByName("car");
         carReady = true;
