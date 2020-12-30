@@ -21,6 +21,32 @@ const createScene = function () {
     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
     skybox.material = skyboxMaterial;
 
+    // Trees
+    const spriteManagerTrees = new BABYLON.SpriteManager("treesManager", "https://playground.babylonjs.com/textures/palm.png", 2000, { width: 512, height: 512 }, scene);
+
+    // Create trees at random positions
+    for (let i = 0; i < 500; i++) {
+        const tree = new BABYLON.Sprite("tree", spriteManagerTrees);
+        tree.position.x = Math.random() * (-30);
+        tree.position.z = Math.random() * 20 + 8;
+        tree.position.y = 0.5;
+    }
+    for (let i = 0; i < 500; i++) {
+        const tree = new BABYLON.Sprite("tree", spriteManagerTrees);
+        tree.position.x = Math.random() * 25 + 7;
+        tree.position.z = Math.random() * -35 + 8;
+        tree.position.y = 0.5;
+    }
+
+    // Animated UFO
+    const spriteManagerUFO = new BABYLON.SpriteManager("UFOManager", "https://assets.babylonjs.com/environments/ufo.png", 1, { width: 128, height: 76 });
+    const ufo = new BABYLON.Sprite("ufo", spriteManagerUFO);
+    ufo.playAnimation(0, 16, true, 125);
+    ufo.position.y = 5;
+    ufo.position.z = 0;
+    ufo.width = 2;
+    ufo.height = 1;
+
     const wireMat = new BABYLON.StandardMaterial("wireMat");
     wireMat.alpha = 0;
 
