@@ -201,6 +201,30 @@ const createScene = function () {
     // Start the particle system
     particleSystem.start();
 
+
+    const pointerDown = (mesh) => {
+        if (mesh === fountain) {
+            switched = !switched;
+            if (switched) {
+                particleSystem.start();
+            } else {
+                particleSystem.stop();
+            }
+        }
+    }
+
+    let switched = false;
+
+    scene.onPointerObservable.add((pointerInfo) => {
+        switch (pointerInfo.type) {
+            case BABYLON.PointerEventTypes.POINTERDOWN:
+                if (pointerInfo.pickInfo.hit) {
+                    pointerDown(pointerInfo.pickInfo.pickedMesh);
+                }
+                break;
+        }
+    });
+
     return scene;
 };
 
