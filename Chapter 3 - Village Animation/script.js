@@ -149,6 +149,21 @@ const createScene = function () {
         });
     });
 
+    // Lathe Fountain
+    const fountainProfile = [
+        new BABYLON.Vector3(0, 0, 0),
+		new BABYLON.Vector3(0.5, 0, 0),
+        new BABYLON.Vector3(0.5, 0.2, 0),
+		new BABYLON.Vector3(0.4, 0.2, 0),
+        new BABYLON.Vector3(0.4, 0.05, 0),
+        new BABYLON.Vector3(0.05, 0.1, 0),
+		new BABYLON.Vector3(0.05, 0.8, 0),
+		new BABYLON.Vector3(0.15, 0.9, 0)
+    ];
+    const fountain = BABYLON.MeshBuilder.CreateLathe("fountain", { shape: fountainProfile, sideOrientation: BABYLON.Mesh.DOUBLESIDE });
+    fountain.position.x = -4;
+    fountain.position.z = -6;
+
     return scene;
 };
 
