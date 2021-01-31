@@ -50,7 +50,7 @@ const createScene = function () {
     camera.upperBetaLimit = Math.PI / 2.2;
     camera.attachControl(canvas, true);
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
-    light.intensity = 0.1;
+    light.intensity = 1;
 
     // Skybox
     const skybox = BABYLON.MeshBuilder.CreateBox("skyBox", { size: 150 }, scene);
@@ -283,6 +283,35 @@ const createScene = function () {
     lamp4.position.x = -2.7;
     lamp4.position.z = 0.8;
     lamp4.rotation.y = -Math.PI / 2;
+
+    // GUI
+    const adt = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI")
+    const panel = new BABYLON.GUI.StackPanel();
+    panel.width = "220px";
+    panel.top = "-50px";
+    panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+    panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+    adt.addControl(panel);
+    const header = new BABYLON.GUI.TextBlock();
+    header.text = "Night to Day";
+    header.height = "30px";
+    header.color = "white";
+    panel.addControl(header);
+    const slider = new BABYLON.GUI.Slider();
+    slider.minimum = 0;
+    slider.maximum = 1;
+    slider.borderColor = "black";
+    slider.color = "#AAAAAA";
+    slider.background = "#white";
+    slider.value = 1;
+    slider.height = "20px";
+    slider.width = "200px";
+    panel.addControl(slider);
+    slider.onValueChangedObservable.add((value) => {
+        if (light) {
+            light.intensity = value;
+        }
+    })
 
     return scene;
 };
