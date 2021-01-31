@@ -49,8 +49,12 @@ const createScene = function () {
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 3, new BABYLON.Vector3(0, 0, 0));
     camera.upperBetaLimit = Math.PI / 2.2;
     camera.attachControl(canvas, true);
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+    const light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -1, 1), scene);
+    light.position = new BABYLON.Vector3(0, 50, -100);
     light.intensity = 1;
+
+    // Shadow generator
+    const shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
 
     // Skybox
     const skybox = BABYLON.MeshBuilder.CreateBox("skyBox", { size: 150 }, scene);
@@ -99,7 +103,9 @@ const createScene = function () {
 
     let carReady = false;
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "./", "valleyvillage.glb");
+    BABYLON.SceneLoader.ImportMeshAsync("", "./", "valleyvillage.glb").then(() => {
+        scene.getMeshByName("ground").receiveShadows = true;
+    });
     BABYLON.SceneLoader.ImportMeshAsync("", "./", "car.babylon").then(() => {
         const car = scene.getMeshByName("car");
         carReady = true;
@@ -159,6 +165,8 @@ const createScene = function () {
         dude.position = new BABYLON.Vector3(1.5, 0, -6.9);
         dude.rotate(BABYLON.Axis.Y, BABYLON.Tools.ToRadians(-90), BABYLON.Space.LOCAL);
         const startRotation = dude.rotationQuaternion.clone();
+
+        shadowGenerator.addShadowCaster(dude, true);
 
         scene.beginAnimation(result.skeletons[0], 0, 100, true, 1.0);
 
